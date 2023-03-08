@@ -7,7 +7,9 @@ import com.matrimony.model.User;
 import com.matrimony.service.MyUserDetailsService;
 import com.matrimony.service.UserLoginService;
 import com.matrimony.service.UserRegistrationService;
-import com.matrimony.security.util.JwtUtil;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/auth")
 public class UserAuthController {
@@ -31,15 +34,12 @@ public class UserAuthController {
     @Autowired
     MyUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
-
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/login")
     public ResponseEntity<UserAuthenticationResponseDto> loginUser(
             @RequestBody UserAuthenticationRequestDto authenticationRequestDto) throws Exception {
         UserAuthenticationResponseDto responseDto = userLoginService.userLogin(authenticationRequestDto);
-        System.out.println("User token granted to the user : " + authenticationRequestDto.getUsername());
+        log.debug("User token granted to the user : " + authenticationRequestDto.getUsername());
         return ResponseEntity.ok(responseDto);
     }
 

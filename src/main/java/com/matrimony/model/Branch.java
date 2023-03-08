@@ -1,7 +1,6 @@
 package com.matrimony.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.matrimony.model.BasicBranch;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Transient;
